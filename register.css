@@ -66,15 +66,15 @@ body {
     align-items: center;
 }
 
-.signIn{
-    border-top: 0.001em solid;
-    border-bottom: 0.001em solid;
+.logIn{
+    border-top-left-radius: 1.8em;
     border-color: darkslategray;
 }
 
-.logIn{
+.signIn{
     background-color: rgb(93,150,164);
-    border-top-left-radius: 1.8em;
+    border-top: 0.001em solid;
+    border-bottom: 0.001em solid;
 }
 
 .elements{
@@ -82,7 +82,7 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     align-items: space-around;
-    width: 74%;
+    width: 75%;
 }
 
 .elements form{
@@ -90,20 +90,21 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    align-content: space-around;
-    padding-top: 13%;
-    padding-bottom: 20%;
+    align-content: space-evenly;
+    padding-top: 8%;
+    padding-bottom: 10%;
 }
 
 .elements form input{
-    width: 70%;
-    height: 25%;
-    margin-bottom: 5%;
+    width: 40%;
+    height: 15%;
+    margin-bottom: 3%;
+    margin-right: 3%;
 }
 
 .elements form button{
-    width: 70%;
-    height: 25%;
+    width: 64%;
+    height: 18%;
     text-align: center;
-    margin-top: 8%;
+    margin-top: 2%;
 }
