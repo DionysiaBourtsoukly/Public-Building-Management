@@ -1,0 +1,52 @@
+:root {
+    font-size: 10px;
+    font: Candara;
+}
+header{
+    display: flex;
+    align-items: center;
+    padding: 2%;
+    background-color: rgb(29, 42, 74);
+    color: rgb(244, 246, 219);
+    font-size: 1.8em;
+}
+body {
+    margin: 0;
+    font: 1.8em / 1.8 Candara;
+    height: 100%;
+}
+.content{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    height: 84.4%;
+}
+.menu{
+    width: 26%;
+    height: 100%;
+    background-color: rgb(217,217,217);
+}
+.map{
+    height: 100%;
+    width: 74%;
+}
+.menu ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    border: 0.001em solid;
+    border-color: gray;
+    margin: 0;
+    border-bottom: 0;
+    padding-left: 0;
+}
+.menu ul li{
+    padding: 5%;
+    width: 100%;
+    font: 1.6em;
+    border-bottom: 0.001em solid;
+    border-color: gray;
+    padding-left: 8%;
+}
