@@ -27,6 +27,9 @@ body {
     background-color: rgb(217,217,217);
 }
 .map{
+    background-color: rgb(189,189,189);
+}
+#leaflet{
     height: 100%;
     width: 74%;
 }
