@@ -25,8 +25,8 @@ body {
 .panel{
     display: flex;
     background-color: white;
-    width: 60%;
-    height: 50%;
+    width: 55%;
+    height: 55%;
     border-radius: 1.8em;
 }
 .options{
@@ -104,7 +104,7 @@ body {
 
 .elements form button{
     width: 64%;
-    height: 18%;
+    height: 16%;
     text-align: center;
     margin-top: 2%;
 }
