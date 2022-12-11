@@ -75,25 +75,5 @@ body {
 }
 #leaflet{
     height: 100%;
-    width: 74%;
-}
-.menu ul {
-    list-style-type: none;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    border: 0.001em solid;
-    border-color: gray;
-    margin: 0;
-    border-bottom: 0;
-    padding-left: 0;
-}
-.menu ul li{
-    padding: 5%;
-    width: 100%;
-    font: 1.6em;
-    border-bottom: 0.001em solid;
-    border-color: gray;
-    padding-left: 8%;
+    width: 78%;
 }
