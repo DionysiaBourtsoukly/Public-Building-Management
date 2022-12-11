@@ -1,30 +1,74 @@
 :root {
-    font-size: 10px;
-    font: Candara;
+    font-size: 100%;
+    font-family: "Candara";
 }
 header{
     display: flex;
     align-items: center;
-    padding: 2%;
     background-color: rgb(29, 42, 74);
     color: rgb(244, 246, 219);
     font-size: 1.8em;
+    height: 100%;
+}
+header h3{
+    padding-left: 2%;
+    font-size: 1.5em;
+    font-weight: 500;
+}
+.title{
+    height: 14.5vh;
 }
 body {
+    font-family:"Candara";
+    font-size: 100%;
+    background-image: url("bckg.jpeg");
     margin: 0;
-    font: 1.8em / 1.8 Candara;
-    height: 100%;
+    height: 100vh;
 }
 .content{
     display: flex;
-    align-items: center;
-    justify-content:space-between;
-    height: 84.4%;
+    align-items: flex-start;
+    justify-content:flex-start;
+    height: 85.5%;
 }
 .menu{
-    width: 26%;
+    width: 22%;
     height: 100%;
     background-color: rgb(217,217,217);
+}
+.elements{
+    height: 100%;
+    width: 78%;
+}
+.menu ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    border: 0.001em solid;
+    border-color: gray;
+    margin: 0;
+    border-bottom: 0;
+    padding-left: 0;
+}
+.menu ul li{
+    padding: 5%;
+    width: 100%;
+    border-bottom: 0.001em solid;
+    border-color: rgba(128, 128, 128, 0.441);
+    padding-left: 8%;
+}
+
+.menu ul li a{
+    color: black;
+    text-decoration: none;
+    font-size: 1em;
+}
+.menu ul li a:visited{
+    color: black;
+    text-decoration: none;
+    font-size: 1em;
 }
 .map{
     background-color: rgb(189,189,189);
