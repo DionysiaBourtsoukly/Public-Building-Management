@@ -1,0 +1,38 @@
+<body>
+    <link rel="stylesheet" href="logIn.css">
+    <div class="title">
+        <header>
+            Σύστημα Διαχείρησης Δημοσίων Κτηρίων
+        </header>
+    </div>
+    <div class="content">
+        <div class="panel">
+            <div class="options">
+                <ul>
+                    <li class="logIn">
+                        <a href="./logIn.html">
+                            Σύνδεση
+                        </a>
+                    </li>
+                    <li class="signIn">
+                        <a href="./signUp.html">
+                            Εγγραφή    
+                        </a>
+                    </li>
+                    <li class="regainPassword">
+                        <a href="./regainPassword.html">
+                            Ανάκτηση Κωδικού
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="elements">
+                <form method="post" action="/login">
+                    <input type="text" size="22" placeholder="username" name="Username">
+                    <input type="password" size="22" placeholder="password" name="Password">
+                    <button type="submit">sign in</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
