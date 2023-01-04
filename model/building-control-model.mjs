@@ -51,7 +51,7 @@ export let findUserByUsernamePassword = (username, password, callback) => {
     callback(null, user);
 }
 
-export let getUserByUsername = (username, callback) => {
+export let getUserByEmail = (username, callback) => {
     const stmt = sql.prepare("SELECT id, email, password, firstName, lastName, phone FROM user WHERE email = ? LIMIT 0, 1");
     let user;
     try {
@@ -76,6 +76,7 @@ export let getUserById = (id, callback) => {
 }
 
 export let registerUser = function (firstName,lastName,phone,username, password, callback) {
+    console.log(firstName);
     // ελέγχουμε αν υπάρχει χρήστης με αυτό το username
     getUserByUsername(username, async (err, userId) => {
         if (userId != undefined) {
@@ -86,7 +87,7 @@ export let registerUser = function (firstName,lastName,phone,username, password,
                 const role = 0;
                 const stmt = sql.prepare('INSERT INTO user VALUES (null, ?, ?, ?, ?, ?)');
                 let info;
-
+                console.log("here",firstName,phone);
                 try {
                     info = stmt.run(firstName, lastName, phone,username, hashedPassword);
                 }

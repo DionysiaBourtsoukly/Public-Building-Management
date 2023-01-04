@@ -27,9 +27,9 @@ export let doLogin = function(req,res){
                     req.session.loggedUserPhone = user.phone;
                     //Αν έχει τιμή η μεταβλητή req.session.originalUrl, αλλιώς όρισέ τη σε "/" 
                     const redirectTo = req.session.originalUrl || "/home";
-                    // res.redirect("/");
+                    //res.redirect("/");
                     res.redirect(redirectTo);
-                    // console.log("logged in");
+                    
                     //res.render('home_page', {"name":req.session.loggedUserUsername, "role":req.session.loggedUserRole ,"loggedUserId":req.session.loggedUserId});
 
                 }
@@ -42,7 +42,8 @@ export let doLogin = function(req,res){
 }
 
 export let doRegister = function (req, res) {
-    userModel.registerUser(req.body.email, req.body.password,req.body.firstName,req.body.lastName,req.body.phone, (err, result, message) => {
+    console.log(req.body);
+    userModel.registerUser(req.body.firstName, req.body.lastName, req.body.phone, req.body.email, req.body.password, (err, result, message) => {
         if (err) {
             console.error('registration error: ' + err);
             //FIXME: δε θα έπρεπε να περνάμε το εσωτερικό σφάλμα στον χρήστη

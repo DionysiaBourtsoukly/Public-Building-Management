@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url';
 import * as logInController from './controller/login-controller.mjs'
 import buildingControlSession from './app-setup/app-setup-session.mjs'
 import * as userModel from './model/building-control-model.mjs'
+import session from 'express-session';
 
 const app = express()
 const router = express.Router();
@@ -19,7 +20,7 @@ app.engine('hbs', engine({ extname: 'hbs' }));
 app.engine('mjs', engine({ extname: 'mjs' }));
 
 app.use(express.urlencoded({ extended: false }));
-// app.use(buildingControlSession);
+app.use(buildingControlSession);
 
 //Ορίζουμε πως η 'hbs' θα είναι η μηχανή template (δηλ. θα ενεργοποιείται με την res.render()) 
 app.set('view engine', 'hbs');
@@ -34,7 +35,12 @@ let home = function(req,res){
         if (err) {
             res.send(err);
         }
-        res.render('home',{});
+        else if(req.session.loggedUserEmail == null){
+            res.redirect('/logIn');
+        }
+        else{
+            res.render('home',{});
+        }
     });
 }
 
@@ -43,7 +49,12 @@ let buildings = function(req,res){
         if (err) {
             res.send(err);
         }
-        res.render('buildings',{});
+        else if(req.session.loggedUserEmail == null){
+            res.redirect('/logIn');
+        }
+        else{
+            res.render('buildings',{});
+        }
     });
 }
 
@@ -52,7 +63,12 @@ let map = function(req,res){
         if (err) {
             res.send(err);
         }
-        res.render('map',{});
+        else if(req.session.loggedUserEmail == null){
+            res.redirect('/logIn');
+        }
+        else{
+            res.render('map',{});
+        }
     });
 }
 
@@ -61,7 +77,12 @@ let problemReports = function(req,res){
         if (err) {
             res.send(err);
         }
-        res.render('problemReports',{});
+        else if(req.session.loggedUserEmail == null){
+            res.redirect('/logIn');
+        }
+        else{
+            res.render('problemReports',{});
+        }
     });
 }
 
@@ -70,7 +91,12 @@ let profile = function(req,res){
         if (err) {
             res.send(err);
         }
-        res.render('profile',{});
+        else if(req.session.loggedUserEmail == null){
+            res.redirect('/logIn');
+        }
+        else{
+            res.render('profile',{});
+        }
     });
 }
 
