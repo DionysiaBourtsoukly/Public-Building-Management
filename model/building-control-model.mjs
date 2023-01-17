@@ -52,14 +52,14 @@ export let findUserByUsernamePassword = (username, password, callback) => {
 }
 
 export let getUserByEmail = (username, callback) => {
-    const stmt = sql.prepare("SELECT id, email, password, firstName, lastName, phone FROM user WHERE email = ? LIMIT 0, 1");
+    const stmt = sql.prepare("SELECT id, email, password, firstName, lastName, phone, domain, sector FROM user WHERE email = ? LIMIT 0, 1");
     let user;
     try {
         user = stmt.all(username);
     } catch (err) {
         callback(err, null);
     }
-
+    console.log(user);
     callback(null, user[0])
 }
 
@@ -75,21 +75,21 @@ export let getUserById = (id, callback) => {
     callback(null, user[0])
 }
 
-export let registerUser = function (firstName,lastName,phone,username, password, callback) {
+export let registerUser = function (firstName,lastName,phone,username,sector,domain, password, callback) {
     console.log(firstName);
     // ελέγχουμε αν υπάρχει χρήστης με αυτό το username
-    getUserByUsername(username, async (err, userId) => {
+    getUserByEmail(username, async (err, userId) => {
         if (userId != undefined) {
             callback(null, null, { message: "Υπάρχει ήδη χρήστης με αυτό το όνομα" })
         } else {
             try {
                 const hashedPassword = await bcrypt.hash(password, 10);
                 const role = 0;
-                const stmt = sql.prepare('INSERT INTO user VALUES (null, ?, ?, ?, ?, ?)');
+                const stmt = sql.prepare('INSERT INTO user VALUES (null, ?, ?, ?, ?, ?, ?, ?)');
                 let info;
                 console.log("here",firstName,phone);
                 try {
-                    info = stmt.run(firstName, lastName, phone,username, hashedPassword);
+                    info = stmt.run(firstName, lastName, phone,username, domain, sector, hashedPassword);
                 }
                 catch (err) {
                     //Αν υπάρχει σφάλμα, κάλεσε τη συνάρτηση επιστροφής και δώστης το σφάλμα

@@ -26,24 +26,28 @@
             </ul>
         </div>
         <div class="elements">
-            <ul class="buildingList">
-                <li id="b1">
-                    <h4>Κτήριο 1</h4>
-                    <p>Ενεργεική Κατανάλωση: &nbsp &nbsp &nbsp Κατανάλωση Νερού:  </p>
-                </li>
-                <li id="b2">
-                    <h4>Κτήριο 2</h4>
-                    <p>Ενεργεική Κατανάλωση: &nbsp &nbsp &nbsp Κατανάλωση Νερού:  </p>
-                </li>
-                <li id="b3">
-                    <h4>Κτήριο 3</h4>
-                    <p>Ενεργεική Κατανάλωση: &nbsp &nbsp &nbsp Κατανάλωση Νερού:  </p>
-                </li>
-                <li id="b4">
-                    <h4>Κτήριο 4</h4>
-                    <p>Ενεργεική Κατανάλωση: &nbsp &nbsp &nbsp Κατανάλωση Νερού:  </p>
-                </li>
-            </ul>
+            <form method="get" action="/logIn">
+                <ul class="profileAttributes">
+                    <li id="b1">
+                        <h4>Όνομα : {{fname}} </h4>
+                    </li>
+                    <li id="b2">
+                        <h4>Επίθετο : {{lname}} </h4>
+                    </li>
+                    <li id="b3">
+                        <h4>Φορέας : {{sector}}</h4>
+                    </li>
+                    <li id="b4">
+                        <h4>Ιδιότητα : {{domain}} </h4>
+                    </li>
+                    <li id="b5">
+                        <h4>Email : {{email}}</h4>
+                    </li>
+                    <li id="b6">
+                        <h4>Phone : {{phone}}</h4>
+                    </li>
+                </ul>
+            </form>
         </div>
     </div>
 </body>

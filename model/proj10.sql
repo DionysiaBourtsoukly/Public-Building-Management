@@ -5,6 +5,8 @@ CREATE TABLE IF NOT EXISTS "user" (
 	"lastName"	TEXT NOT NULL,
 	"phone"	NUMERIC NOT NULL UNIQUE,
 	"email"	TEXT NOT NULL UNIQUE,
+	"domain" TEXT NOT NULL,
+	"sector" TEXT NOT NULL,
 	"password"	TEXT NOT NULL,
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
