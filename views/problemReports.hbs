@@ -33,21 +33,17 @@
                         <a href="./b1">Κτήριο 1</a>
                         <a href="./b2">Κτήριο 2</a>
                         <a href="./b3">Κτήριο 3</a>
-                        <a href="./b4">Κτήριο 4</a>
                     </div>
                 </button>
             </div>
             <ul class="problemList">
-                <li id="p1">
-                    <h4>Διαρροή Νερού</h4>
-                    <p>Όροφος 1 Δωμάτιο 3, 10/12/22 21:40:23</p>
+                {{#each pr}}
+                <li>
+                    <h4>{{this.title}}</h4>
+                    <p>ID Δωματίου: {{this.room}},  {{this.date}} {{this.time}}</p>
                     <button type="button">x</button>
                 </li>
-                <li id="p2">
-                    <h4>Αδυναμία ρύθμισης θερμοκρασίας</h4>
-                    <p>Όροφος 2 Δωμάτιο 1, 9/12/22 13:06:51</p>
-                    <button type="button">x</button>
-                </li>
+                {{/each}}
             </ul>
         </div>
     </div>
