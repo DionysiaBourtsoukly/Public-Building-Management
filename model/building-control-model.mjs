@@ -12,23 +12,6 @@ const db_name = path.join(__dirname, "proj10.db");
 
 const sql = new db('./model/proj10.sqlite', { fileMustExist: true });
 
-// export let getLines = (callback) => {
-//     const sql = "SELECT DISTINCT * FROM LINE";
-//     const sql2 = "SELECT DISTINCT * FROM LINE join SCHEDULED_ROUTE on SCHEDULED_ROUTE.line_number = LINE.line_number";
-//     const db = new sqlite3.Database(db_name);
-//     var r;
-//     var r2;
-//     db.all(sql2, (err, rows) => {
-//         if (err) {
-//             db.close();
-//             callback(err, null);
-//         }
-//         // r = rows;
-        
-//         callback(null, rows); // επιστρέφει array
-//     });
-// }
-
 const  query = (text, params, callback) => {
     const db = new sqlite3.Database(db_name);
     return db.query(text, params, callback)
@@ -40,7 +23,6 @@ export let connect = (callback) => {
 }
 
 export let findUserByUsernamePassword = (username, password, callback) => {
-    //Φέρε μόνο μια εγγραφή (το LIMIT 0, 1) που να έχει username και password ίσο με username και password 
     const stmt = sql.prepare("SELECT email FROM user WHERE email = ? and password = ? LIMIT 0, 1");
     let user;
     try {
@@ -59,7 +41,7 @@ export let getUserByEmail = (username, callback) => {
     } catch (err) {
         callback(err, null);
     }
-    console.log(user);
+    // console.log(user);
     callback(null, user[0])
 }
 
@@ -76,8 +58,6 @@ export let getUserById = (id, callback) => {
 }
 
 export let registerUser = function (firstName,lastName,phone,username,sector,domain, password, callback) {
-    console.log(firstName);
-    // ελέγχουμε αν υπάρχει χρήστης με αυτό το username
     getUserByEmail(username, async (err, userId) => {
         if (userId != undefined) {
             callback(null, null, { message: "Υπάρχει ήδη χρήστης με αυτό το όνομα" })
@@ -87,17 +67,12 @@ export let registerUser = function (firstName,lastName,phone,username,sector,dom
                 const role = 0;
                 const stmt = sql.prepare('INSERT INTO user VALUES (null, ?, ?, ?, ?, ?, ?, ?)');
                 let info;
-                console.log("here",firstName,phone);
                 try {
                     info = stmt.run(firstName, lastName, phone,username, domain, sector, hashedPassword);
                 }
                 catch (err) {
-                    //Αν υπάρχει σφάλμα, κάλεσε τη συνάρτηση επιστροφής και δώστης το σφάλμα
                     callback(err, null);
                 }
-                //Αλλιώς κάλεσε τη συνάρτηση επιστροφής με όρισμα το id που πήρε από τη βάση η νέα εγγραφή
-                //Την τιμή του info.lastInsertRowid μας τη δίνει η ίδια η βάση και εξασφαλίζουμε έτσι πως κάθε
-                //εγγραφή έχει μοναδικό id
                 callback(null, info.lastInsertRowid);
             } catch (error) {
                 callback(error);
@@ -107,111 +82,86 @@ export let registerUser = function (firstName,lastName,phone,username,sector,dom
     })
 }
 
-// export let getTicketInfo = function(callback){
-//     const stmt = sql.prepare("SELECT type, sale, zone, price FROM ticket_card");
-//     let table;
-//     try{
-//         table = stmt.all();
-//     }
-//     catch(err){
-//         callback(err,null);
-//     }
-//     callback(null, table);
-// }
+export let getSensors = (callback) => {
+    const sql = "select buildingId as building,floorId as floor,roomId as room,sensor.id as c1, value as c2, batteryLevel as c3, airQualitySensor.id as c4, energySensor.id as c5 , lightSensor.id  as c6,temperatureSensor.id as c7 from (((((((sensor join room on roomId = room.id) join floor on floorId = floor.id) join buildings on buildingId = buildings.id) LEFT join airQualitySensor on sensor.id = airQualitySensor.id) LEFT join energySensor on sensor.id = energySensor.id) LEFT join lightSensor on sensor.id = lightSensor.id) left join temperatureSensor on sensor.id = temperatureSensor.id) UNION ALL select buildings.id as building, floor.id as floor, room.id as room, state as c1, ac.id as c2,ac.heat as c3, light.id as c4, light.level as c5, plug.id as c6, ventilation.id as c7 from buildings join floor on floor.buildingId = buildings.id join room on room.floorId = floor.id join device on device.roomId = room.id left join ac on ac.id = device.id left join light on light.id = device.id left join plug on plug.id = device.id left join ventilation on ventilation.id = device.id";
+    const db = new sqlite3.Database(db_name);
+    db.all(sql, (err, rows) => {
+        if(err) {
+            db.close();
+            callback(err, null);
+        }
+        callback(null, rows);
+    });
+}
 
-// export let updateTickets = function(x,y ,callback){
-//     const stmt = sql.prepare('UPDATE ticket_card set price = ? WHERE id = ?');
-//     let info;
-//     try {
-//         const xx = x.toString();
-//         const yy = parseInt(y) +1;
-//         info = stmt.run(xx,yy);
-//     }
-//     catch (err) {
-//         //Αν υπάρχει σφάλμα, κάλεσε τη συνάρτηση επιστροφής και δώστης το σφάλμα
-//         callback(err, null);
-//         console.log(err);
-//     }
-// }
+export let getProblemReports1 = (callback) =>{
+    const sql = "select room_id,title,date,time,floorId,buildingId from problemReports join room on room_id = room.id join floor on room.floorId = floor.id join buildings on floor.buildingId = buildings.id where buildings.id = 1";
+    const db = new sqlite3.Database(db_name);
+    db.all(sql, (err, rows) => {
+        if(err) {
+            db.close();
+            callback(err, null);
+        }
+        callback(null, rows);
+    });
+}
+export let getProblemReports2 = (callback) =>{
+    const sql = "select room_id,title,date,time,floorId,buildingId from problemReports join room on room_id = room.id join floor on room.floorId = floor.id join buildings on floor.buildingId = buildings.id where buildings.id = 2";
+    const db = new sqlite3.Database(db_name);
+    db.all(sql, (err, rows) => {
+        if(err) {
+            db.close();
+            callback(err, null);
+        }
+        callback(null, rows);
+    });
+}
+export let getProblemReports3 = (callback) =>{
+    const sql = "select room_id,title,date,time,floorId,buildingId from problemReports join room on room_id = room.id join floor on room.floorId = floor.id join buildings on floor.buildingId = buildings.id where buildings.id = 3";
+    const db = new sqlite3.Database(db_name);
+    db.all(sql, (err, rows) => {
+        if(err) {
+            db.close();
+            callback(err, null);
+        }
+        callback(null, rows);
+    });
+}
 
-// export let getTicketSellingPointInfo = function(callback){
-//     const stmt = sql.prepare("SELECT * from ticket_selling_point");
-//     let table;
-//     try{
-//         table = stmt.all();
-//     }
-//     catch(err){
-//         callback(err,null);
-//     }
-//     callback(null,table);
-// }
-
-// export let updateTicketSellingPoints = function(x,y,z ,callback){
-//     const stmt = sql.prepare('UPDATE ticket_selling_point set address = ?,time = ? WHERE id = ?');
-//     let info;
-//     try {
-//         const xx = x.toString();
-//         const yy = y.toString();
-//         const zz = parseInt(z)+1;
-//         info = stmt.run(xx,yy,zz);
-//         console.log("done");
-//     }
-//     catch (err) {
-//         //Αν υπάρχει σφάλμα, κάλεσε τη συνάρτηση επιστροφής και δώστης το σφάλμα
-//         callback(err, null);
-//         console.log(err);
-//     }
-// }
-
-// export let getNearestStop = (gps_lat, gps_lng, callback)=>{
-//     const sql = "select stop_name from (SELECT * , ((?-gps_latitude)*(?-gps_latitude)+(?-gps_longtitude)*(?-gps_longtitude)) as d_square from stop order by d_square limit 1)"
-//     const db = new sqlite3.Database(db_name);
-//     db.all(sql, [gps_lat, gps_lat, gps_lng,gps_lng], (err, rows) => {
-//     if (err) {
-//         db.close();
-//         callback(err, null);
-//     }
-//     db.close();
-//     callback(null, rows); 
-// });
-// }
-
-
-// export let findLine = (start, destination, callback)=>{
-//     const sql = "select Y.line_number, (strftime('%s', hour)-strftime('%s', time('15:10')))/60 +sum(time_difference) as 'waiting_time' from (select * from(select *from SCHEDULED_ROUTE where line_number in(select line_number from HAS_STOP where next_stop in (select stop_id from stop where stop_name=?) INTERSECT select line_number from HAS_STOP where next_stop in (select stop_id from stop where stop_name=?) group by line_number) and day='Κυριακή' and time('15:10')<hour group by line_number order by hour) as X join HAS_STOP on HAS_STOP.line_number=X.line_number) as Y join (select stops_order as b,line_number from HAS_STOP join stop on stop_id=next_stop where stop_name=?) as Z on Y.line_number=Z.line_number where stops_order<=b group by Y.line_number"
-//     const db = new sqlite3.Database(db_name);
-//     db.all(sql, [start,destination,start], (err, rows) => {
-//     if (err) {
-//         db.close();
-//         callback(err, null);
-//     }
-//     db.close();
-//     callback(null, rows); 
-// });
-// }
-
-// export let stopList = (callback)=> {
-//     const sql = "select stop_name from stop"
-//     const db = new sqlite3.Database(db_name);
-//     db.all(sql, (err, rows) => {
-//     if (err) {
-//         db.close();
-//         callback(err, null);
-//     }
-//     db.close();
-//     callback(null, rows); 
-// });
-// }
-
-// export let getLineStops = (line_name, callback) =>{
-//     const sql = "select stop_name,gps_latitude,gps_longtitude from HAS_STOP join stop on next_stop=stop_id join LINE on HAS_STOP.line_number=line.line_number where line_name=? order by stops_order"
-//     const db = new sqlite3.Database(db_name);
-//     db.all(sql, [line_name], (err, rows) => {
-//     if (err) {
-//         db.close();
-//         callback(err, null);
-//     }
-//     db.close();
-//     callback(null, rows); 
-// });
-// }
+export let updateDevices = function(x,y,z,callback){
+    let info;
+    let info2;
+    let xx=parseInt(x);
+    let yy = parseInt(y);
+    let zz = parseInt(z);
+    const stmt2 = sql.prepare('UPDATE device set state = ? WHERE id = ?');
+    try{
+        info2 = stmt2.run(yy,xx);
+    }
+    catch(err){
+        callback(err, null);
+        console.log(err);
+    }
+    if (zz!=0){
+        if (zz>100){
+            const stmt = sql.prepare('UPDATE light set level = ? WHERE id = ?');
+            try{
+                info = stmt.run(zz,xx);
+            }
+            catch(err){
+                callback(err, null);
+                console.log(err);
+            }
+        }
+        else {
+            const stmt = sql.prepare('UPDATE ac set desired = ? WHERE id = ?');
+            try{
+                info = stmt.run(zz,xx);
+            }
+            catch(err){
+                callback(err, null);
+                console.log(err);
+            }
+        }
+    }
+}

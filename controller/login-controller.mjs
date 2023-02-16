@@ -27,7 +27,6 @@ export let doLogin = function(req,res){
                     req.session.loggedUserPhone = user.phone;
                     req.session.loggedUserDomain = user.domain;
                     req.session.loggedUserSector = user.sector;
-                    console.log("jabkg", user.sector);
                     //Αν έχει τιμή η μεταβλητή req.session.originalUrl, αλλιώς όρισέ τη σε "/" 
                     const redirectTo = req.session.originalUrl || "/home";
                     //res.redirect("/");
@@ -45,7 +44,6 @@ export let doLogin = function(req,res){
 }
 
 export let doRegister = function (req, res) {
-    console.log(req.body);
     userModel.registerUser(req.body.firstName, req.body.lastName, req.body.phone, req.body.email,req.body.domain,req.body.sector, req.body.password, (err, result, message) => {
         if (err) {
             console.error('registration error: ' + err);

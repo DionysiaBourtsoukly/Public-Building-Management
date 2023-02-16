@@ -22,18 +22,19 @@ body {
     font-family: "Candara";
     font-size: 100%;
     margin: 0;
-    height:100vh;
+    height: 100%;
 }
 .content{
     display: flex;
-    align-items: flex-start;
+    align-items: stretch;
     justify-content:flex-start;
-    height: 85.5%;
     width: 100%;
+    max-width: 200vb;
+    min-height: 85.5vh;
 }
 .menu{
     width: 22%;
-    height: 100%;
+    overflow: auto;
     background-color: rgb(217,217,217);
 }
 .menu ul {
@@ -77,8 +78,7 @@ body {
     flex-direction: column;
     flex-wrap: wrap;
     /* align-items: flex-start; */
-    background-color: white;
-    height: 94%;
+    background-color: rgb(251, 251, 251);
     width: 78%;
 }
 
@@ -87,8 +87,10 @@ body {
     list-style-type: none;
     padding: 1%;
     border: 1px solid;
-    border-color: rgba(195, 195, 195, 0.281);
-    width: 39%;
+    border-color: rgba(195, 195, 195, 0.677);
+    width: 45%;
+    margin-bottom: 3%;
+    background-color: white;
 }
 .elements li p{
     font-size: 0.8em;
@@ -98,15 +100,17 @@ body {
 
 .elements li h4{
     margin: 1%;
-    margin-bottom: 5%;
-    font-weight: 400;
+    margin-bottom: 3%;
+    font-weight: 600;
+    line-height: 1.4em;
+    font-size: 1.3em;
+    cursor: pointer;
 }
 .elements ul{
     display: flex;
     /* justify-content: flex-start; */
     flex-direction: column;
     flex-wrap: wrap;
-    height: 94%;
     padding: 1%;
     padding-top: 0;
 }
